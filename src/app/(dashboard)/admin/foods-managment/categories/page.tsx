@@ -1,7 +1,7 @@
 import React from "react";
 
 const Page = () => {
-  return <div>admin</div>;
+  return <div>categories</div>;
 };
 
 export default Page;
