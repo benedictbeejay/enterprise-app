@@ -1,17 +1,16 @@
 "use client";
 
-import { useCategoriesStore } from "../_libs/use-category-store";
+import { useCategoriesStore } from "../_libs/useCategoriesStore";
 import {
   useCreateCategory,
   useUpdateCategory,
-} from "../_services/use-category-mutations";
-
+} from "../_services/use-mutations";
 import { useCategory } from "../_services/use-category-queries";
 import {
   categoryDefaultValues,
   categorySchema,
   CategorySchema,
-} from "../_types/categorySchema";
+} from "../_types/schema";
 import { Button } from "@/components/ui/button";
 import { ControlledInput } from "@/components/ui/controlled-input";
 import {

@@ -1,11 +1,11 @@
 "use client";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { ComponentProps } from "react";
-import { Label } from "@radix-ui/react-label";
 import { Controller, FieldValues, Path, useFormContext } from "react-hook-form";
-import { Input } from "./input";
 
-type ControlledInputProps<T extends FieldValues> = {
+type InputProps<T extends FieldValues> = {
   name: Path<T>;
   label?: string;
   containerClassName?: string;
@@ -18,8 +18,9 @@ const ControlledInput = <T extends FieldValues>({
   label,
   containerClassName,
   ...props
-}: ControlledInputProps<T>) => {
+}: InputProps<T>) => {
   const { control } = useFormContext<T>();
+
   return (
     <div className={cn("w-full", containerClassName)}>
       {!!label && (
@@ -27,6 +28,7 @@ const ControlledInput = <T extends FieldValues>({
           {label}
         </Label>
       )}
+
       <Controller
         name={name}
         control={control}

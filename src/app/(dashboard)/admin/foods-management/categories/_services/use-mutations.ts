@@ -1,28 +1,5 @@
-// import { useMutation, useQueryClient } from "@tanstack/react-query";
-// import { deleteCategory } from "./categoryMutations";
-// import { toast } from "sonner";
-
-// const useDeleteCategory = () => {
-//   const QueryClient = useQueryClient();
-//   return useMutation({
-//     mutationFn: async (id: number) => {
-//       await deleteCategory(id);
-//     },
-//     onSuccess: () => {
-//       toast.success("Category deleted successfully");
-//       QueryClient.invalidateQueries({ queryKey: ["categories"] });
-//     },
-//   });
-// };
-
-// export { useDeleteCategory };
-
-import {
-  createCategory,
-  deleteCategory,
-  updateCategory,
-} from "./categoryMutations";
-import { CategorySchema } from "../_types/categorySchema";
+import { updateCategory, createCategory, deleteCategory } from "./services";
+import { CategorySchema } from "../_types/schema";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 

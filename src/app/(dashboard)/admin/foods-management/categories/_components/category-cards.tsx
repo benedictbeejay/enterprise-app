@@ -1,31 +1,38 @@
 "use client";
-import { Edit, Trash } from "lucide-react";
-import { useDeleteCategory } from "../_services/use-category-mutations";
-import { useCategories } from "../_services/use-category-queries";
-import { Button } from "@/components/ui/button";
-import { alert } from "@/lib/use-global-store";
-import { useCategoriesStore } from "../_libs/use-category-store";
+// import { CategoryCardsSkeleton } from "@/app/(dashboard)/admin/foods-management/categories/_components/category-cards-skeleton";
 import { CategoryCardsSkeleton } from "./category-cards-skeleton";
+// import { useCategoriesStore } from "@/app/(dashboard)/admin/foods-management/categories/_libs/useCategoriesStore";
+import { useCategoriesStore } from "../_libs/useCategoriesStore";
+// import { useDeleteCategory } from "@/app/(dashboard)/admin/foods-management/categories/_services/use-mutations";
+import { useDeleteCategory } from "../_services/use-mutations";
+// import { useCategories } from "@/app/(dashboard)/admin/foods-management/categories/_services/use-queries";
+import { useCategories } from "../_services/use-category-queries";
 import { NoItemsFound } from "@/components/no-items-found";
+import { Button } from "@/components/ui/button";
+// import { alert } from "@/lib/useGlobalStore";
+import { alert } from "@/lib/use-global-store";
+import { Edit, Trash } from "lucide-react";
 
 const CategoryCards = () => {
   const { updateSelectedCategoryId, updateCategoryDialogOpen } =
     useCategoriesStore();
+
   const categoriesQuery = useCategories();
-  const deleteCategoriesMutation = useDeleteCategory();
+  const deleteCategoryMutation = useDeleteCategory();
 
   if (categoriesQuery.data?.length === 0) {
     return <NoItemsFound onClick={() => updateCategoryDialogOpen(true)} />;
   }
+
   return (
-    <div className="grid grid-cols-4 gap-2">
+    <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-4">
       {categoriesQuery.isLoading ? (
         <CategoryCardsSkeleton />
       ) : (
         <>
           {categoriesQuery.data?.map((item) => (
             <div
-              className="bg-accent flex flex-col justify-between gap-3 rounded-lg p-6 shadow-md"
+              className="flex flex-col justify-between gap-3 rounded-lg border p-6"
               key={item.id}
             >
               <p className="truncate">{item.name}</p>
@@ -47,7 +54,7 @@ const CategoryCards = () => {
                   size="icon"
                   onClick={() => {
                     alert({
-                      onConfirm: () => deleteCategoriesMutation.mutate(item.id),
+                      onConfirm: () => deleteCategoryMutation.mutate(item.id),
                     });
                   }}
                 >

@@ -149,8 +149,8 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
                 variant="ghost"
                 className="flex h-9 items-center gap-2 px-2"
               >
-                <Avatar className="size-8">
-                  <AvatarFallback>A</AvatarFallback>
+                <Avatar className="size-8 py-1.5">
+                  <AvatarFallback className="mt-2">A</AvatarFallback>
                 </Avatar>
                 <span className="hidden md:inline">Admin</span>
               </Button>
@@ -160,7 +160,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
               <DropdownMenuSeparator />
 
               <div className="flex items-center gap-3 px-2 py-1.5">
-                <Avatar className="size-10">
+                <Avatar className="size-10 py-2">
                   <AvatarFallback>A</AvatarFallback>
                 </Avatar>
                 <div>
