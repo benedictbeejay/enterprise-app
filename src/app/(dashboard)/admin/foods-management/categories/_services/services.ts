@@ -1,3 +1,4 @@
+"use server";
 import { CategorySchema } from "../_types/schema";
 import db from "@/lib/db";
 import { executeAction } from "@/lib/executeAction";
@@ -36,12 +37,6 @@ const deleteCategory = async (id: number) => {
 const getCategories = async () => {
   return await db.category.findMany();
 };
-
-// const getCategories = async () => {
-//   const res = await fetch("/api/categories", { cache: "no-store" });
-//   if (!res.ok) throw new Error("Failed to fetch categories");
-//   return res.json();
-// };
 
 const getCategory = async (id: number): Promise<CategorySchema> => {
   const res = await db.category.findFirst({

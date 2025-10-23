@@ -4,14 +4,30 @@ import { ServingUnitSchema } from "../_types/schema";
 import db from "@/lib/db";
 import { executeAction } from "@/lib/executeAction";
 
+// const createServingUnit = async (data: ServingUnitSchema) => {
+//   await executeAction({
+//     actionFn: () =>
+//       db.servingUnit.create({
+//         data: {
+//           name: data.name,
+//         },
+//       }),
+//   });
+// };
+
 const createServingUnit = async (data: ServingUnitSchema) => {
   await executeAction({
-    actionFn: () =>
-      db.servingUnit.create({
-        data: {
-          name: data.name,
-        },
-      }),
+    actionFn: async () => {
+      const existing = await db.servingUnit.findUnique({
+        where: { name: data.name },
+      });
+      if (existing) {
+        throw new Error("Serving Unit already exists.");
+      }
+      await db.servingUnit.create({
+        data: { name: data.name },
+      });
+    },
   });
 };
 
