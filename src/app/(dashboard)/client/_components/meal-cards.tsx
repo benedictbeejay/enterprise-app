@@ -166,7 +166,7 @@ const MealCards = () => {
             <CardHeader className="pb-2">
               <CardTitle className="flex items-center text-sm font-medium">
                 <PieChart className="text-primary mr-2 h-4 w-4" />
-                Macronutrients
+                Macro nutrients
               </CardTitle>
             </CardHeader>
             <CardContent>
