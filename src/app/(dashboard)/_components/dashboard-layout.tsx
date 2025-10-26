@@ -29,6 +29,9 @@ import { Avatar, AvatarFallback } from "@radix-ui/react-avatar";
 import { ThemeToggle } from "@/components/theme-toggle";
 import z from "zod";
 import { customErrorMap } from "@/lib/customErrorMap";
+import { Session } from "next-auth";
+import { Role } from "$/generated/prisma";
+import { useSignOut } from "@/app/(auth)/sign-in/_services/use-sign-in-mutations";
 z.setErrorMap(customErrorMap);
 
 type RouteGroupType = {
@@ -125,10 +128,33 @@ const RouteGroup = ({ group, items }: RouteGroupProps) => {
 
 type DashboardLayoutProps = {
   children: ReactNode;
+  session: Session;
 };
 
-const DashboardLayout = ({ children }: DashboardLayoutProps) => {
+const DashboardLayout = ({ children, session }: DashboardLayoutProps) => {
   const [open, setOpen] = useState(false);
+  const signOutMutation = useSignOut();
+  // const userRole = session.user.role;
+  const userRole = session?.user?.role;
+
+  const filteredRouteGroups = ROUTE_GROUPS.filter((group) => {
+    // if (userRole === Role.ADMIN) {
+    //   return group.group === "Foods Management";
+    // } else {
+    //   return group.group === "Meals Management";
+    // }
+    if (userRole === Role.ADMIN) {
+      return group.group === "Foods Management";
+    } else {
+      return group.group === "Meals Management";
+    }
+    // if (userRole === Role.CLIENT) return group.group === "Meals Management";
+    // return false; // or handle other roles
+  });
+
+  const handleLogout = () => {
+    signOutMutation.mutate();
+  };
   return (
     <div className="flex">
       {" "}
@@ -143,42 +169,44 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
         <div className="flex">
           {/* ThemeToggle */}
           <ThemeToggle />
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant="ghost"
-                className="flex h-9 items-center gap-2 px-2"
-              >
-                <Avatar className="size-8 py-1.5">
-                  <AvatarFallback className="mt-2">A</AvatarFallback>
-                </Avatar>
-                <span className="hidden md:inline">Admin</span>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
 
-              <div className="flex items-center gap-3 px-2 py-1.5">
-                <Avatar className="size-10 py-2">
-                  <AvatarFallback>A</AvatarFallback>
-                </Avatar>
-                <div>
-                  <p className="text-sm font-medium">Admin</p>
-                  <p className="text-muted-foreground text-xs">admin@test</p>
+          {session && (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  className="flex h-9 items-center gap-2 px-2"
+                >
+                  <Avatar className="size-8 py-1.5">
+                    <AvatarFallback className="mt-2">
+                      {session.user.name?.[0]}
+                    </AvatarFallback>
+                  </Avatar>
+                  <span className="hidden md:inline">{session.user.name}</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+
+                <div className="flex items-center gap-3 px-2 py-1.5">
+                  <Avatar className="size-10 py-2">
+                    <AvatarFallback>{session.user.name?.[0]}</AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <p className="text-sm font-medium">{session.user.name}</p>
+                    <p className="text-muted-foreground text-xs">
+                      {session.user.email}
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem
-                onClick={() => {
-                  //Logout
-                }}
-                variant="destructive"
-              >
-                <LogOut className="size-4" /> Logout
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={handleLogout} variant="destructive">
+                  <LogOut className="size-4" /> Logout
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
         </div>
       </div>
       <Collapsible.Root
@@ -200,7 +228,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
             </div>
             <Separator className="my-2" />
             <div className="mt-4">
-              {ROUTE_GROUPS.map((routeGroup) => (
+              {filteredRouteGroups.map((routeGroup) => (
                 <RouteGroup {...routeGroup} key={routeGroup.group} />
               ))}
             </div>
@@ -217,4 +245,4 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
     </div>
   );
 };
-export { DashboardLayout };
+export default DashboardLayout;
