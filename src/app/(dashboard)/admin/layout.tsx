@@ -1,7 +1,6 @@
 import { auth } from "@/lib/auth";
 import { Role } from "$/generated/prisma";
 import { redirect } from "next/navigation";
-// import { ReactNode } from "react";
 import { ReactNode } from "react";
 
 type LayoutProps = { children: ReactNode };
