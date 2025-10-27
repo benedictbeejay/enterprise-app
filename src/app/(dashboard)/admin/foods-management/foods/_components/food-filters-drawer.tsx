@@ -109,10 +109,12 @@ const FoodFiltersDrawer = () => {
                   label="Category"
                   name="categoryId"
                   clearable
-                  options={categoriesQuery.data?.map((item) => ({
-                    value: item.id,
-                    label: item.name,
-                  }))}
+                  options={categoriesQuery.data?.map(
+                    (item: { id: number; name: string }) => ({
+                      value: item.id,
+                      label: item.name,
+                    }),
+                  )}
                 />
 
                 <ControlledSelect<FoodFiltersSchema>
