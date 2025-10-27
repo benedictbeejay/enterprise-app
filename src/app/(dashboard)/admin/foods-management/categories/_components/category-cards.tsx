@@ -30,7 +30,8 @@ const CategoryCards = () => {
         <CategoryCardsSkeleton />
       ) : (
         <>
-          {categoriesQuery.data?.map((item) => (
+          {/* {categoriesQuery.data?.map((item) => ( */}
+          {categoriesQuery.data?.map((item: { id: number; name: string }) => (
             <div
               className="flex flex-col justify-between gap-3 rounded-lg border p-6"
               key={item.id}
