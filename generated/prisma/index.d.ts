@@ -3018,9 +3018,9 @@ export namespace Prisma {
     updateAt?: boolean
     categoryId?: boolean
     mealId?: boolean
+    meal?: boolean | Food$mealArgs<ExtArgs>
     category?: boolean | Food$categoryArgs<ExtArgs>
     FoodServingUnit?: boolean | Food$FoodServingUnitArgs<ExtArgs>
-    meal?: boolean | Food$mealArgs<ExtArgs>
     mealFood?: boolean | Food$mealFoodArgs<ExtArgs>
     _count?: boolean | FoodCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["food"]>
@@ -3038,8 +3038,8 @@ export namespace Prisma {
     updateAt?: boolean
     categoryId?: boolean
     mealId?: boolean
-    category?: boolean | Food$categoryArgs<ExtArgs>
     meal?: boolean | Food$mealArgs<ExtArgs>
+    category?: boolean | Food$categoryArgs<ExtArgs>
   }, ExtArgs["result"]["food"]>
 
   export type FoodSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3055,8 +3055,8 @@ export namespace Prisma {
     updateAt?: boolean
     categoryId?: boolean
     mealId?: boolean
-    category?: boolean | Food$categoryArgs<ExtArgs>
     meal?: boolean | Food$mealArgs<ExtArgs>
+    category?: boolean | Food$categoryArgs<ExtArgs>
   }, ExtArgs["result"]["food"]>
 
   export type FoodSelectScalar = {
@@ -3076,27 +3076,27 @@ export namespace Prisma {
 
   export type FoodOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "calories" | "protein" | "fat" | "carbohydrates" | "fibre" | "sugar" | "createdAt" | "updateAt" | "categoryId" | "mealId", ExtArgs["result"]["food"]>
   export type FoodInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    meal?: boolean | Food$mealArgs<ExtArgs>
     category?: boolean | Food$categoryArgs<ExtArgs>
     FoodServingUnit?: boolean | Food$FoodServingUnitArgs<ExtArgs>
-    meal?: boolean | Food$mealArgs<ExtArgs>
     mealFood?: boolean | Food$mealFoodArgs<ExtArgs>
     _count?: boolean | FoodCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type FoodIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    category?: boolean | Food$categoryArgs<ExtArgs>
     meal?: boolean | Food$mealArgs<ExtArgs>
+    category?: boolean | Food$categoryArgs<ExtArgs>
   }
   export type FoodIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    category?: boolean | Food$categoryArgs<ExtArgs>
     meal?: boolean | Food$mealArgs<ExtArgs>
+    category?: boolean | Food$categoryArgs<ExtArgs>
   }
 
   export type $FoodPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Food"
     objects: {
+      meal: Prisma.$MealPayload<ExtArgs> | null
       category: Prisma.$CategoryPayload<ExtArgs> | null
       FoodServingUnit: Prisma.$FoodServingUnitPayload<ExtArgs>[]
-      meal: Prisma.$MealPayload<ExtArgs> | null
       mealFood: Prisma.$MealFoodPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -3506,9 +3506,9 @@ export namespace Prisma {
    */
   export interface Prisma__FoodClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    meal<T extends Food$mealArgs<ExtArgs> = {}>(args?: Subset<T, Food$mealArgs<ExtArgs>>): Prisma__MealClient<$Result.GetResult<Prisma.$MealPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     category<T extends Food$categoryArgs<ExtArgs> = {}>(args?: Subset<T, Food$categoryArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     FoodServingUnit<T extends Food$FoodServingUnitArgs<ExtArgs> = {}>(args?: Subset<T, Food$FoodServingUnitArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FoodServingUnitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    meal<T extends Food$mealArgs<ExtArgs> = {}>(args?: Subset<T, Food$mealArgs<ExtArgs>>): Prisma__MealClient<$Result.GetResult<Prisma.$MealPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     mealFood<T extends Food$mealFoodArgs<ExtArgs> = {}>(args?: Subset<T, Food$mealFoodArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MealFoodPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -3945,6 +3945,25 @@ export namespace Prisma {
   }
 
   /**
+   * Food.meal
+   */
+  export type Food$mealArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meal
+     */
+    select?: MealSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meal
+     */
+    omit?: MealOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MealInclude<ExtArgs> | null
+    where?: MealWhereInput
+  }
+
+  /**
    * Food.category
    */
   export type Food$categoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3985,25 +4004,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: FoodServingUnitScalarFieldEnum | FoodServingUnitScalarFieldEnum[]
-  }
-
-  /**
-   * Food.meal
-   */
-  export type Food$mealArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Meal
-     */
-    select?: MealSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Meal
-     */
-    omit?: MealOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MealInclude<ExtArgs> | null
-    where?: MealWhereInput
   }
 
   /**
@@ -6457,8 +6457,8 @@ export namespace Prisma {
     foodId?: boolean
     servingUnitId?: boolean
     grams?: boolean
-    food?: boolean | FoodDefaultArgs<ExtArgs>
     servingUnit?: boolean | ServingUnitDefaultArgs<ExtArgs>
+    food?: boolean | FoodDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["foodServingUnit"]>
 
   export type FoodServingUnitSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -6466,8 +6466,8 @@ export namespace Prisma {
     foodId?: boolean
     servingUnitId?: boolean
     grams?: boolean
-    food?: boolean | FoodDefaultArgs<ExtArgs>
     servingUnit?: boolean | ServingUnitDefaultArgs<ExtArgs>
+    food?: boolean | FoodDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["foodServingUnit"]>
 
   export type FoodServingUnitSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -6475,8 +6475,8 @@ export namespace Prisma {
     foodId?: boolean
     servingUnitId?: boolean
     grams?: boolean
-    food?: boolean | FoodDefaultArgs<ExtArgs>
     servingUnit?: boolean | ServingUnitDefaultArgs<ExtArgs>
+    food?: boolean | FoodDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["foodServingUnit"]>
 
   export type FoodServingUnitSelectScalar = {
@@ -6488,23 +6488,23 @@ export namespace Prisma {
 
   export type FoodServingUnitOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "foodId" | "servingUnitId" | "grams", ExtArgs["result"]["foodServingUnit"]>
   export type FoodServingUnitInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    food?: boolean | FoodDefaultArgs<ExtArgs>
     servingUnit?: boolean | ServingUnitDefaultArgs<ExtArgs>
+    food?: boolean | FoodDefaultArgs<ExtArgs>
   }
   export type FoodServingUnitIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    food?: boolean | FoodDefaultArgs<ExtArgs>
     servingUnit?: boolean | ServingUnitDefaultArgs<ExtArgs>
+    food?: boolean | FoodDefaultArgs<ExtArgs>
   }
   export type FoodServingUnitIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    food?: boolean | FoodDefaultArgs<ExtArgs>
     servingUnit?: boolean | ServingUnitDefaultArgs<ExtArgs>
+    food?: boolean | FoodDefaultArgs<ExtArgs>
   }
 
   export type $FoodServingUnitPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "FoodServingUnit"
     objects: {
-      food: Prisma.$FoodPayload<ExtArgs>
       servingUnit: Prisma.$ServingUnitPayload<ExtArgs>
+      food: Prisma.$FoodPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -6905,8 +6905,8 @@ export namespace Prisma {
    */
   export interface Prisma__FoodServingUnitClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    food<T extends FoodDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FoodDefaultArgs<ExtArgs>>): Prisma__FoodClient<$Result.GetResult<Prisma.$FoodPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     servingUnit<T extends ServingUnitDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ServingUnitDefaultArgs<ExtArgs>>): Prisma__ServingUnitClient<$Result.GetResult<Prisma.$ServingUnitPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    food<T extends FoodDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FoodDefaultArgs<ExtArgs>>): Prisma__FoodClient<$Result.GetResult<Prisma.$FoodPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8718,9 +8718,9 @@ export namespace Prisma {
     mealId?: boolean
     servingUnitId?: boolean
     amount?: boolean
-    food?: boolean | FoodDefaultArgs<ExtArgs>
-    meal?: boolean | MealDefaultArgs<ExtArgs>
     servingUnit?: boolean | ServingUnitDefaultArgs<ExtArgs>
+    meal?: boolean | MealDefaultArgs<ExtArgs>
+    food?: boolean | FoodDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["mealFood"]>
 
   export type MealFoodSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -8729,9 +8729,9 @@ export namespace Prisma {
     mealId?: boolean
     servingUnitId?: boolean
     amount?: boolean
-    food?: boolean | FoodDefaultArgs<ExtArgs>
-    meal?: boolean | MealDefaultArgs<ExtArgs>
     servingUnit?: boolean | ServingUnitDefaultArgs<ExtArgs>
+    meal?: boolean | MealDefaultArgs<ExtArgs>
+    food?: boolean | FoodDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["mealFood"]>
 
   export type MealFoodSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -8740,9 +8740,9 @@ export namespace Prisma {
     mealId?: boolean
     servingUnitId?: boolean
     amount?: boolean
-    food?: boolean | FoodDefaultArgs<ExtArgs>
-    meal?: boolean | MealDefaultArgs<ExtArgs>
     servingUnit?: boolean | ServingUnitDefaultArgs<ExtArgs>
+    meal?: boolean | MealDefaultArgs<ExtArgs>
+    food?: boolean | FoodDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["mealFood"]>
 
   export type MealFoodSelectScalar = {
@@ -8755,27 +8755,27 @@ export namespace Prisma {
 
   export type MealFoodOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "foodId" | "mealId" | "servingUnitId" | "amount", ExtArgs["result"]["mealFood"]>
   export type MealFoodInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    food?: boolean | FoodDefaultArgs<ExtArgs>
-    meal?: boolean | MealDefaultArgs<ExtArgs>
     servingUnit?: boolean | ServingUnitDefaultArgs<ExtArgs>
+    meal?: boolean | MealDefaultArgs<ExtArgs>
+    food?: boolean | FoodDefaultArgs<ExtArgs>
   }
   export type MealFoodIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    food?: boolean | FoodDefaultArgs<ExtArgs>
-    meal?: boolean | MealDefaultArgs<ExtArgs>
     servingUnit?: boolean | ServingUnitDefaultArgs<ExtArgs>
+    meal?: boolean | MealDefaultArgs<ExtArgs>
+    food?: boolean | FoodDefaultArgs<ExtArgs>
   }
   export type MealFoodIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    food?: boolean | FoodDefaultArgs<ExtArgs>
-    meal?: boolean | MealDefaultArgs<ExtArgs>
     servingUnit?: boolean | ServingUnitDefaultArgs<ExtArgs>
+    meal?: boolean | MealDefaultArgs<ExtArgs>
+    food?: boolean | FoodDefaultArgs<ExtArgs>
   }
 
   export type $MealFoodPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "MealFood"
     objects: {
-      food: Prisma.$FoodPayload<ExtArgs>
-      meal: Prisma.$MealPayload<ExtArgs>
       servingUnit: Prisma.$ServingUnitPayload<ExtArgs>
+      meal: Prisma.$MealPayload<ExtArgs>
+      food: Prisma.$FoodPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -9177,9 +9177,9 @@ export namespace Prisma {
    */
   export interface Prisma__MealFoodClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    food<T extends FoodDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FoodDefaultArgs<ExtArgs>>): Prisma__FoodClient<$Result.GetResult<Prisma.$FoodPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    meal<T extends MealDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MealDefaultArgs<ExtArgs>>): Prisma__MealClient<$Result.GetResult<Prisma.$MealPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     servingUnit<T extends ServingUnitDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ServingUnitDefaultArgs<ExtArgs>>): Prisma__ServingUnitClient<$Result.GetResult<Prisma.$ServingUnitPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    meal<T extends MealDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MealDefaultArgs<ExtArgs>>): Prisma__MealClient<$Result.GetResult<Prisma.$MealPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    food<T extends FoodDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FoodDefaultArgs<ExtArgs>>): Prisma__FoodClient<$Result.GetResult<Prisma.$FoodPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9862,9 +9862,9 @@ export namespace Prisma {
     updateAt?: DateTimeFilter<"Food"> | Date | string
     categoryId?: IntNullableFilter<"Food"> | number | null
     mealId?: IntNullableFilter<"Food"> | number | null
+    meal?: XOR<MealNullableScalarRelationFilter, MealWhereInput> | null
     category?: XOR<CategoryNullableScalarRelationFilter, CategoryWhereInput> | null
     FoodServingUnit?: FoodServingUnitListRelationFilter
-    meal?: XOR<MealNullableScalarRelationFilter, MealWhereInput> | null
     mealFood?: MealFoodListRelationFilter
   }
 
@@ -9881,9 +9881,9 @@ export namespace Prisma {
     updateAt?: SortOrder
     categoryId?: SortOrderInput | SortOrder
     mealId?: SortOrderInput | SortOrder
+    meal?: MealOrderByWithRelationInput
     category?: CategoryOrderByWithRelationInput
     FoodServingUnit?: FoodServingUnitOrderByRelationAggregateInput
-    meal?: MealOrderByWithRelationInput
     mealFood?: MealFoodOrderByRelationAggregateInput
   }
 
@@ -9903,9 +9903,9 @@ export namespace Prisma {
     updateAt?: DateTimeFilter<"Food"> | Date | string
     categoryId?: IntNullableFilter<"Food"> | number | null
     mealId?: IntNullableFilter<"Food"> | number | null
+    meal?: XOR<MealNullableScalarRelationFilter, MealWhereInput> | null
     category?: XOR<CategoryNullableScalarRelationFilter, CategoryWhereInput> | null
     FoodServingUnit?: FoodServingUnitListRelationFilter
-    meal?: XOR<MealNullableScalarRelationFilter, MealWhereInput> | null
     mealFood?: MealFoodListRelationFilter
   }, "id" | "name">
 
@@ -10062,8 +10062,8 @@ export namespace Prisma {
     foodId?: IntFilter<"FoodServingUnit"> | number
     servingUnitId?: IntFilter<"FoodServingUnit"> | number
     grams?: FloatNullableFilter<"FoodServingUnit"> | number | null
-    food?: XOR<FoodScalarRelationFilter, FoodWhereInput>
     servingUnit?: XOR<ServingUnitScalarRelationFilter, ServingUnitWhereInput>
+    food?: XOR<FoodScalarRelationFilter, FoodWhereInput>
   }
 
   export type FoodServingUnitOrderByWithRelationInput = {
@@ -10071,8 +10071,8 @@ export namespace Prisma {
     foodId?: SortOrder
     servingUnitId?: SortOrder
     grams?: SortOrderInput | SortOrder
-    food?: FoodOrderByWithRelationInput
     servingUnit?: ServingUnitOrderByWithRelationInput
+    food?: FoodOrderByWithRelationInput
   }
 
   export type FoodServingUnitWhereUniqueInput = Prisma.AtLeast<{
@@ -10083,8 +10083,8 @@ export namespace Prisma {
     foodId?: IntFilter<"FoodServingUnit"> | number
     servingUnitId?: IntFilter<"FoodServingUnit"> | number
     grams?: FloatNullableFilter<"FoodServingUnit"> | number | null
-    food?: XOR<FoodScalarRelationFilter, FoodWhereInput>
     servingUnit?: XOR<ServingUnitScalarRelationFilter, ServingUnitWhereInput>
+    food?: XOR<FoodScalarRelationFilter, FoodWhereInput>
   }, "id">
 
   export type FoodServingUnitOrderByWithAggregationInput = {
@@ -10181,9 +10181,9 @@ export namespace Prisma {
     mealId?: IntFilter<"MealFood"> | number
     servingUnitId?: IntFilter<"MealFood"> | number
     amount?: FloatFilter<"MealFood"> | number
-    food?: XOR<FoodScalarRelationFilter, FoodWhereInput>
-    meal?: XOR<MealScalarRelationFilter, MealWhereInput>
     servingUnit?: XOR<ServingUnitScalarRelationFilter, ServingUnitWhereInput>
+    meal?: XOR<MealScalarRelationFilter, MealWhereInput>
+    food?: XOR<FoodScalarRelationFilter, FoodWhereInput>
   }
 
   export type MealFoodOrderByWithRelationInput = {
@@ -10192,9 +10192,9 @@ export namespace Prisma {
     mealId?: SortOrder
     servingUnitId?: SortOrder
     amount?: SortOrder
-    food?: FoodOrderByWithRelationInput
-    meal?: MealOrderByWithRelationInput
     servingUnit?: ServingUnitOrderByWithRelationInput
+    meal?: MealOrderByWithRelationInput
+    food?: FoodOrderByWithRelationInput
   }
 
   export type MealFoodWhereUniqueInput = Prisma.AtLeast<{
@@ -10206,9 +10206,9 @@ export namespace Prisma {
     mealId?: IntFilter<"MealFood"> | number
     servingUnitId?: IntFilter<"MealFood"> | number
     amount?: FloatFilter<"MealFood"> | number
-    food?: XOR<FoodScalarRelationFilter, FoodWhereInput>
-    meal?: XOR<MealScalarRelationFilter, MealWhereInput>
     servingUnit?: XOR<ServingUnitScalarRelationFilter, ServingUnitWhereInput>
+    meal?: XOR<MealScalarRelationFilter, MealWhereInput>
+    food?: XOR<FoodScalarRelationFilter, FoodWhereInput>
   }, "id">
 
   export type MealFoodOrderByWithAggregationInput = {
@@ -10316,9 +10316,9 @@ export namespace Prisma {
     sugar?: number | null
     createdAt?: Date | string
     updateAt?: Date | string
+    meal?: MealCreateNestedOneWithoutFoodsInput
     category?: CategoryCreateNestedOneWithoutFoodsInput
     FoodServingUnit?: FoodServingUnitCreateNestedManyWithoutFoodInput
-    meal?: MealCreateNestedOneWithoutFoodsInput
     mealFood?: MealFoodCreateNestedManyWithoutFoodInput
   }
 
@@ -10349,9 +10349,9 @@ export namespace Prisma {
     sugar?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    meal?: MealUpdateOneWithoutFoodsNestedInput
     category?: CategoryUpdateOneWithoutFoodsNestedInput
     FoodServingUnit?: FoodServingUnitUpdateManyWithoutFoodNestedInput
-    meal?: MealUpdateOneWithoutFoodsNestedInput
     mealFood?: MealFoodUpdateManyWithoutFoodNestedInput
   }
 
@@ -10520,8 +10520,8 @@ export namespace Prisma {
 
   export type FoodServingUnitCreateInput = {
     grams?: number | null
-    food: FoodCreateNestedOneWithoutFoodServingUnitInput
     servingUnit: ServingUnitCreateNestedOneWithoutFoodServingUnitInput
+    food: FoodCreateNestedOneWithoutFoodServingUnitInput
   }
 
   export type FoodServingUnitUncheckedCreateInput = {
@@ -10533,8 +10533,8 @@ export namespace Prisma {
 
   export type FoodServingUnitUpdateInput = {
     grams?: NullableFloatFieldUpdateOperationsInput | number | null
-    food?: FoodUpdateOneRequiredWithoutFoodServingUnitNestedInput
     servingUnit?: ServingUnitUpdateOneRequiredWithoutFoodServingUnitNestedInput
+    food?: FoodUpdateOneRequiredWithoutFoodServingUnitNestedInput
   }
 
   export type FoodServingUnitUncheckedUpdateInput = {
@@ -10624,9 +10624,9 @@ export namespace Prisma {
 
   export type MealFoodCreateInput = {
     amount: number
-    food: FoodCreateNestedOneWithoutMealFoodInput
-    meal: MealCreateNestedOneWithoutMealFoodInput
     servingUnit: ServingUnitCreateNestedOneWithoutMealFoodInput
+    meal: MealCreateNestedOneWithoutMealFoodInput
+    food: FoodCreateNestedOneWithoutMealFoodInput
   }
 
   export type MealFoodUncheckedCreateInput = {
@@ -10639,9 +10639,9 @@ export namespace Prisma {
 
   export type MealFoodUpdateInput = {
     amount?: FloatFieldUpdateOperationsInput | number
-    food?: FoodUpdateOneRequiredWithoutMealFoodNestedInput
-    meal?: MealUpdateOneRequiredWithoutMealFoodNestedInput
     servingUnit?: ServingUnitUpdateOneRequiredWithoutMealFoodNestedInput
+    meal?: MealUpdateOneRequiredWithoutMealFoodNestedInput
+    food?: FoodUpdateOneRequiredWithoutMealFoodNestedInput
   }
 
   export type MealFoodUncheckedUpdateInput = {
@@ -10842,6 +10842,11 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type MealNullableScalarRelationFilter = {
+    is?: MealWhereInput | null
+    isNot?: MealWhereInput | null
+  }
+
   export type CategoryNullableScalarRelationFilter = {
     is?: CategoryWhereInput | null
     isNot?: CategoryWhereInput | null
@@ -10851,11 +10856,6 @@ export namespace Prisma {
     every?: FoodServingUnitWhereInput
     some?: FoodServingUnitWhereInput
     none?: FoodServingUnitWhereInput
-  }
-
-  export type MealNullableScalarRelationFilter = {
-    is?: MealWhereInput | null
-    isNot?: MealWhereInput | null
   }
 
   export type MealFoodListRelationFilter = {
@@ -11046,14 +11046,14 @@ export namespace Prisma {
     id?: SortOrder
   }
 
-  export type FoodScalarRelationFilter = {
-    is?: FoodWhereInput
-    isNot?: FoodWhereInput
-  }
-
   export type ServingUnitScalarRelationFilter = {
     is?: ServingUnitWhereInput
     isNot?: ServingUnitWhereInput
+  }
+
+  export type FoodScalarRelationFilter = {
+    is?: FoodWhereInput
+    isNot?: FoodWhereInput
   }
 
   export type FoodServingUnitCountOrderByAggregateInput = {
@@ -11264,6 +11264,12 @@ export namespace Prisma {
     deleteMany?: MealScalarWhereInput | MealScalarWhereInput[]
   }
 
+  export type MealCreateNestedOneWithoutFoodsInput = {
+    create?: XOR<MealCreateWithoutFoodsInput, MealUncheckedCreateWithoutFoodsInput>
+    connectOrCreate?: MealCreateOrConnectWithoutFoodsInput
+    connect?: MealWhereUniqueInput
+  }
+
   export type CategoryCreateNestedOneWithoutFoodsInput = {
     create?: XOR<CategoryCreateWithoutFoodsInput, CategoryUncheckedCreateWithoutFoodsInput>
     connectOrCreate?: CategoryCreateOrConnectWithoutFoodsInput
@@ -11275,12 +11281,6 @@ export namespace Prisma {
     connectOrCreate?: FoodServingUnitCreateOrConnectWithoutFoodInput | FoodServingUnitCreateOrConnectWithoutFoodInput[]
     createMany?: FoodServingUnitCreateManyFoodInputEnvelope
     connect?: FoodServingUnitWhereUniqueInput | FoodServingUnitWhereUniqueInput[]
-  }
-
-  export type MealCreateNestedOneWithoutFoodsInput = {
-    create?: XOR<MealCreateWithoutFoodsInput, MealUncheckedCreateWithoutFoodsInput>
-    connectOrCreate?: MealCreateOrConnectWithoutFoodsInput
-    connect?: MealWhereUniqueInput
   }
 
   export type MealFoodCreateNestedManyWithoutFoodInput = {
@@ -11312,6 +11312,16 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type MealUpdateOneWithoutFoodsNestedInput = {
+    create?: XOR<MealCreateWithoutFoodsInput, MealUncheckedCreateWithoutFoodsInput>
+    connectOrCreate?: MealCreateOrConnectWithoutFoodsInput
+    upsert?: MealUpsertWithoutFoodsInput
+    disconnect?: MealWhereInput | boolean
+    delete?: MealWhereInput | boolean
+    connect?: MealWhereUniqueInput
+    update?: XOR<XOR<MealUpdateToOneWithWhereWithoutFoodsInput, MealUpdateWithoutFoodsInput>, MealUncheckedUpdateWithoutFoodsInput>
+  }
+
   export type CategoryUpdateOneWithoutFoodsNestedInput = {
     create?: XOR<CategoryCreateWithoutFoodsInput, CategoryUncheckedCreateWithoutFoodsInput>
     connectOrCreate?: CategoryCreateOrConnectWithoutFoodsInput
@@ -11334,16 +11344,6 @@ export namespace Prisma {
     update?: FoodServingUnitUpdateWithWhereUniqueWithoutFoodInput | FoodServingUnitUpdateWithWhereUniqueWithoutFoodInput[]
     updateMany?: FoodServingUnitUpdateManyWithWhereWithoutFoodInput | FoodServingUnitUpdateManyWithWhereWithoutFoodInput[]
     deleteMany?: FoodServingUnitScalarWhereInput | FoodServingUnitScalarWhereInput[]
-  }
-
-  export type MealUpdateOneWithoutFoodsNestedInput = {
-    create?: XOR<MealCreateWithoutFoodsInput, MealUncheckedCreateWithoutFoodsInput>
-    connectOrCreate?: MealCreateOrConnectWithoutFoodsInput
-    upsert?: MealUpsertWithoutFoodsInput
-    disconnect?: MealWhereInput | boolean
-    delete?: MealWhereInput | boolean
-    connect?: MealWhereUniqueInput
-    update?: XOR<XOR<MealUpdateToOneWithWhereWithoutFoodsInput, MealUpdateWithoutFoodsInput>, MealUncheckedUpdateWithoutFoodsInput>
   }
 
   export type MealFoodUpdateManyWithoutFoodNestedInput = {
@@ -11522,24 +11522,16 @@ export namespace Prisma {
     deleteMany?: MealFoodScalarWhereInput | MealFoodScalarWhereInput[]
   }
 
-  export type FoodCreateNestedOneWithoutFoodServingUnitInput = {
-    create?: XOR<FoodCreateWithoutFoodServingUnitInput, FoodUncheckedCreateWithoutFoodServingUnitInput>
-    connectOrCreate?: FoodCreateOrConnectWithoutFoodServingUnitInput
-    connect?: FoodWhereUniqueInput
-  }
-
   export type ServingUnitCreateNestedOneWithoutFoodServingUnitInput = {
     create?: XOR<ServingUnitCreateWithoutFoodServingUnitInput, ServingUnitUncheckedCreateWithoutFoodServingUnitInput>
     connectOrCreate?: ServingUnitCreateOrConnectWithoutFoodServingUnitInput
     connect?: ServingUnitWhereUniqueInput
   }
 
-  export type FoodUpdateOneRequiredWithoutFoodServingUnitNestedInput = {
+  export type FoodCreateNestedOneWithoutFoodServingUnitInput = {
     create?: XOR<FoodCreateWithoutFoodServingUnitInput, FoodUncheckedCreateWithoutFoodServingUnitInput>
     connectOrCreate?: FoodCreateOrConnectWithoutFoodServingUnitInput
-    upsert?: FoodUpsertWithoutFoodServingUnitInput
     connect?: FoodWhereUniqueInput
-    update?: XOR<XOR<FoodUpdateToOneWithWhereWithoutFoodServingUnitInput, FoodUpdateWithoutFoodServingUnitInput>, FoodUncheckedUpdateWithoutFoodServingUnitInput>
   }
 
   export type ServingUnitUpdateOneRequiredWithoutFoodServingUnitNestedInput = {
@@ -11548,6 +11540,14 @@ export namespace Prisma {
     upsert?: ServingUnitUpsertWithoutFoodServingUnitInput
     connect?: ServingUnitWhereUniqueInput
     update?: XOR<XOR<ServingUnitUpdateToOneWithWhereWithoutFoodServingUnitInput, ServingUnitUpdateWithoutFoodServingUnitInput>, ServingUnitUncheckedUpdateWithoutFoodServingUnitInput>
+  }
+
+  export type FoodUpdateOneRequiredWithoutFoodServingUnitNestedInput = {
+    create?: XOR<FoodCreateWithoutFoodServingUnitInput, FoodUncheckedCreateWithoutFoodServingUnitInput>
+    connectOrCreate?: FoodCreateOrConnectWithoutFoodServingUnitInput
+    upsert?: FoodUpsertWithoutFoodServingUnitInput
+    connect?: FoodWhereUniqueInput
+    update?: XOR<XOR<FoodUpdateToOneWithWhereWithoutFoodServingUnitInput, FoodUpdateWithoutFoodServingUnitInput>, FoodUncheckedUpdateWithoutFoodServingUnitInput>
   }
 
   export type FoodCreateNestedManyWithoutMealInput = {
@@ -11648,10 +11648,10 @@ export namespace Prisma {
     deleteMany?: MealFoodScalarWhereInput | MealFoodScalarWhereInput[]
   }
 
-  export type FoodCreateNestedOneWithoutMealFoodInput = {
-    create?: XOR<FoodCreateWithoutMealFoodInput, FoodUncheckedCreateWithoutMealFoodInput>
-    connectOrCreate?: FoodCreateOrConnectWithoutMealFoodInput
-    connect?: FoodWhereUniqueInput
+  export type ServingUnitCreateNestedOneWithoutMealFoodInput = {
+    create?: XOR<ServingUnitCreateWithoutMealFoodInput, ServingUnitUncheckedCreateWithoutMealFoodInput>
+    connectOrCreate?: ServingUnitCreateOrConnectWithoutMealFoodInput
+    connect?: ServingUnitWhereUniqueInput
   }
 
   export type MealCreateNestedOneWithoutMealFoodInput = {
@@ -11660,10 +11660,10 @@ export namespace Prisma {
     connect?: MealWhereUniqueInput
   }
 
-  export type ServingUnitCreateNestedOneWithoutMealFoodInput = {
-    create?: XOR<ServingUnitCreateWithoutMealFoodInput, ServingUnitUncheckedCreateWithoutMealFoodInput>
-    connectOrCreate?: ServingUnitCreateOrConnectWithoutMealFoodInput
-    connect?: ServingUnitWhereUniqueInput
+  export type FoodCreateNestedOneWithoutMealFoodInput = {
+    create?: XOR<FoodCreateWithoutMealFoodInput, FoodUncheckedCreateWithoutMealFoodInput>
+    connectOrCreate?: FoodCreateOrConnectWithoutMealFoodInput
+    connect?: FoodWhereUniqueInput
   }
 
   export type FloatFieldUpdateOperationsInput = {
@@ -11674,12 +11674,12 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type FoodUpdateOneRequiredWithoutMealFoodNestedInput = {
-    create?: XOR<FoodCreateWithoutMealFoodInput, FoodUncheckedCreateWithoutMealFoodInput>
-    connectOrCreate?: FoodCreateOrConnectWithoutMealFoodInput
-    upsert?: FoodUpsertWithoutMealFoodInput
-    connect?: FoodWhereUniqueInput
-    update?: XOR<XOR<FoodUpdateToOneWithWhereWithoutMealFoodInput, FoodUpdateWithoutMealFoodInput>, FoodUncheckedUpdateWithoutMealFoodInput>
+  export type ServingUnitUpdateOneRequiredWithoutMealFoodNestedInput = {
+    create?: XOR<ServingUnitCreateWithoutMealFoodInput, ServingUnitUncheckedCreateWithoutMealFoodInput>
+    connectOrCreate?: ServingUnitCreateOrConnectWithoutMealFoodInput
+    upsert?: ServingUnitUpsertWithoutMealFoodInput
+    connect?: ServingUnitWhereUniqueInput
+    update?: XOR<XOR<ServingUnitUpdateToOneWithWhereWithoutMealFoodInput, ServingUnitUpdateWithoutMealFoodInput>, ServingUnitUncheckedUpdateWithoutMealFoodInput>
   }
 
   export type MealUpdateOneRequiredWithoutMealFoodNestedInput = {
@@ -11690,12 +11690,12 @@ export namespace Prisma {
     update?: XOR<XOR<MealUpdateToOneWithWhereWithoutMealFoodInput, MealUpdateWithoutMealFoodInput>, MealUncheckedUpdateWithoutMealFoodInput>
   }
 
-  export type ServingUnitUpdateOneRequiredWithoutMealFoodNestedInput = {
-    create?: XOR<ServingUnitCreateWithoutMealFoodInput, ServingUnitUncheckedCreateWithoutMealFoodInput>
-    connectOrCreate?: ServingUnitCreateOrConnectWithoutMealFoodInput
-    upsert?: ServingUnitUpsertWithoutMealFoodInput
-    connect?: ServingUnitWhereUniqueInput
-    update?: XOR<XOR<ServingUnitUpdateToOneWithWhereWithoutMealFoodInput, ServingUnitUpdateWithoutMealFoodInput>, ServingUnitUncheckedUpdateWithoutMealFoodInput>
+  export type FoodUpdateOneRequiredWithoutMealFoodNestedInput = {
+    create?: XOR<FoodCreateWithoutMealFoodInput, FoodUncheckedCreateWithoutMealFoodInput>
+    connectOrCreate?: FoodCreateOrConnectWithoutMealFoodInput
+    upsert?: FoodUpsertWithoutMealFoodInput
+    connect?: FoodWhereUniqueInput
+    update?: XOR<XOR<FoodUpdateToOneWithWhereWithoutMealFoodInput, FoodUpdateWithoutMealFoodInput>, FoodUncheckedUpdateWithoutMealFoodInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -11932,6 +11932,28 @@ export namespace Prisma {
     updateAt?: DateTimeFilter<"Meal"> | Date | string
   }
 
+  export type MealCreateWithoutFoodsInput = {
+    dateTime: Date | string
+    createdAt?: Date | string
+    updateAt?: Date | string
+    user: UserCreateNestedOneWithoutMealInput
+    mealFood?: MealFoodCreateNestedManyWithoutMealInput
+  }
+
+  export type MealUncheckedCreateWithoutFoodsInput = {
+    id?: number
+    dateTime: Date | string
+    userId: number
+    createdAt?: Date | string
+    updateAt?: Date | string
+    mealFood?: MealFoodUncheckedCreateNestedManyWithoutMealInput
+  }
+
+  export type MealCreateOrConnectWithoutFoodsInput = {
+    where: MealWhereUniqueInput
+    create: XOR<MealCreateWithoutFoodsInput, MealUncheckedCreateWithoutFoodsInput>
+  }
+
   export type CategoryCreateWithoutFoodsInput = {
     name: string
     createdAt?: Date | string
@@ -11970,32 +11992,10 @@ export namespace Prisma {
     data: FoodServingUnitCreateManyFoodInput | FoodServingUnitCreateManyFoodInput[]
   }
 
-  export type MealCreateWithoutFoodsInput = {
-    dateTime: Date | string
-    createdAt?: Date | string
-    updateAt?: Date | string
-    user: UserCreateNestedOneWithoutMealInput
-    mealFood?: MealFoodCreateNestedManyWithoutMealInput
-  }
-
-  export type MealUncheckedCreateWithoutFoodsInput = {
-    id?: number
-    dateTime: Date | string
-    userId: number
-    createdAt?: Date | string
-    updateAt?: Date | string
-    mealFood?: MealFoodUncheckedCreateNestedManyWithoutMealInput
-  }
-
-  export type MealCreateOrConnectWithoutFoodsInput = {
-    where: MealWhereUniqueInput
-    create: XOR<MealCreateWithoutFoodsInput, MealUncheckedCreateWithoutFoodsInput>
-  }
-
   export type MealFoodCreateWithoutFoodInput = {
     amount: number
-    meal: MealCreateNestedOneWithoutMealFoodInput
     servingUnit: ServingUnitCreateNestedOneWithoutMealFoodInput
+    meal: MealCreateNestedOneWithoutMealFoodInput
   }
 
   export type MealFoodUncheckedCreateWithoutFoodInput = {
@@ -12012,6 +12012,34 @@ export namespace Prisma {
 
   export type MealFoodCreateManyFoodInputEnvelope = {
     data: MealFoodCreateManyFoodInput | MealFoodCreateManyFoodInput[]
+  }
+
+  export type MealUpsertWithoutFoodsInput = {
+    update: XOR<MealUpdateWithoutFoodsInput, MealUncheckedUpdateWithoutFoodsInput>
+    create: XOR<MealCreateWithoutFoodsInput, MealUncheckedCreateWithoutFoodsInput>
+    where?: MealWhereInput
+  }
+
+  export type MealUpdateToOneWithWhereWithoutFoodsInput = {
+    where?: MealWhereInput
+    data: XOR<MealUpdateWithoutFoodsInput, MealUncheckedUpdateWithoutFoodsInput>
+  }
+
+  export type MealUpdateWithoutFoodsInput = {
+    dateTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutMealNestedInput
+    mealFood?: MealFoodUpdateManyWithoutMealNestedInput
+  }
+
+  export type MealUncheckedUpdateWithoutFoodsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    dateTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mealFood?: MealFoodUncheckedUpdateManyWithoutMealNestedInput
   }
 
   export type CategoryUpsertWithoutFoodsInput = {
@@ -12064,34 +12092,6 @@ export namespace Prisma {
     grams?: FloatNullableFilter<"FoodServingUnit"> | number | null
   }
 
-  export type MealUpsertWithoutFoodsInput = {
-    update: XOR<MealUpdateWithoutFoodsInput, MealUncheckedUpdateWithoutFoodsInput>
-    create: XOR<MealCreateWithoutFoodsInput, MealUncheckedCreateWithoutFoodsInput>
-    where?: MealWhereInput
-  }
-
-  export type MealUpdateToOneWithWhereWithoutFoodsInput = {
-    where?: MealWhereInput
-    data: XOR<MealUpdateWithoutFoodsInput, MealUncheckedUpdateWithoutFoodsInput>
-  }
-
-  export type MealUpdateWithoutFoodsInput = {
-    dateTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutMealNestedInput
-    mealFood?: MealFoodUpdateManyWithoutMealNestedInput
-  }
-
-  export type MealUncheckedUpdateWithoutFoodsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    dateTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    userId?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    mealFood?: MealFoodUncheckedUpdateManyWithoutMealNestedInput
-  }
-
   export type MealFoodUpsertWithWhereUniqueWithoutFoodInput = {
     where: MealFoodWhereUniqueInput
     update: XOR<MealFoodUpdateWithoutFoodInput, MealFoodUncheckedUpdateWithoutFoodInput>
@@ -12129,8 +12129,8 @@ export namespace Prisma {
     sugar?: number | null
     createdAt?: Date | string
     updateAt?: Date | string
-    FoodServingUnit?: FoodServingUnitCreateNestedManyWithoutFoodInput
     meal?: MealCreateNestedOneWithoutFoodsInput
+    FoodServingUnit?: FoodServingUnitCreateNestedManyWithoutFoodInput
     mealFood?: MealFoodCreateNestedManyWithoutFoodInput
   }
 
@@ -12215,8 +12215,8 @@ export namespace Prisma {
 
   export type MealFoodCreateWithoutServingUnitInput = {
     amount: number
-    food: FoodCreateNestedOneWithoutMealFoodInput
     meal: MealCreateNestedOneWithoutMealFoodInput
+    food: FoodCreateNestedOneWithoutMealFoodInput
   }
 
   export type MealFoodUncheckedCreateWithoutServingUnitInput = {
@@ -12267,6 +12267,26 @@ export namespace Prisma {
     data: XOR<MealFoodUpdateManyMutationInput, MealFoodUncheckedUpdateManyWithoutServingUnitInput>
   }
 
+  export type ServingUnitCreateWithoutFoodServingUnitInput = {
+    name: string
+    createdAt?: Date | string
+    updateAt?: Date | string
+    mealFood?: MealFoodCreateNestedManyWithoutServingUnitInput
+  }
+
+  export type ServingUnitUncheckedCreateWithoutFoodServingUnitInput = {
+    id?: number
+    name: string
+    createdAt?: Date | string
+    updateAt?: Date | string
+    mealFood?: MealFoodUncheckedCreateNestedManyWithoutServingUnitInput
+  }
+
+  export type ServingUnitCreateOrConnectWithoutFoodServingUnitInput = {
+    where: ServingUnitWhereUniqueInput
+    create: XOR<ServingUnitCreateWithoutFoodServingUnitInput, ServingUnitUncheckedCreateWithoutFoodServingUnitInput>
+  }
+
   export type FoodCreateWithoutFoodServingUnitInput = {
     name: string
     calories?: number | null
@@ -12277,8 +12297,8 @@ export namespace Prisma {
     sugar?: number | null
     createdAt?: Date | string
     updateAt?: Date | string
-    category?: CategoryCreateNestedOneWithoutFoodsInput
     meal?: MealCreateNestedOneWithoutFoodsInput
+    category?: CategoryCreateNestedOneWithoutFoodsInput
     mealFood?: MealFoodCreateNestedManyWithoutFoodInput
   }
 
@@ -12301,68 +12321,6 @@ export namespace Prisma {
   export type FoodCreateOrConnectWithoutFoodServingUnitInput = {
     where: FoodWhereUniqueInput
     create: XOR<FoodCreateWithoutFoodServingUnitInput, FoodUncheckedCreateWithoutFoodServingUnitInput>
-  }
-
-  export type ServingUnitCreateWithoutFoodServingUnitInput = {
-    name: string
-    createdAt?: Date | string
-    updateAt?: Date | string
-    mealFood?: MealFoodCreateNestedManyWithoutServingUnitInput
-  }
-
-  export type ServingUnitUncheckedCreateWithoutFoodServingUnitInput = {
-    id?: number
-    name: string
-    createdAt?: Date | string
-    updateAt?: Date | string
-    mealFood?: MealFoodUncheckedCreateNestedManyWithoutServingUnitInput
-  }
-
-  export type ServingUnitCreateOrConnectWithoutFoodServingUnitInput = {
-    where: ServingUnitWhereUniqueInput
-    create: XOR<ServingUnitCreateWithoutFoodServingUnitInput, ServingUnitUncheckedCreateWithoutFoodServingUnitInput>
-  }
-
-  export type FoodUpsertWithoutFoodServingUnitInput = {
-    update: XOR<FoodUpdateWithoutFoodServingUnitInput, FoodUncheckedUpdateWithoutFoodServingUnitInput>
-    create: XOR<FoodCreateWithoutFoodServingUnitInput, FoodUncheckedCreateWithoutFoodServingUnitInput>
-    where?: FoodWhereInput
-  }
-
-  export type FoodUpdateToOneWithWhereWithoutFoodServingUnitInput = {
-    where?: FoodWhereInput
-    data: XOR<FoodUpdateWithoutFoodServingUnitInput, FoodUncheckedUpdateWithoutFoodServingUnitInput>
-  }
-
-  export type FoodUpdateWithoutFoodServingUnitInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    calories?: NullableFloatFieldUpdateOperationsInput | number | null
-    protein?: NullableFloatFieldUpdateOperationsInput | number | null
-    fat?: NullableFloatFieldUpdateOperationsInput | number | null
-    carbohydrates?: NullableFloatFieldUpdateOperationsInput | number | null
-    fibre?: NullableFloatFieldUpdateOperationsInput | number | null
-    sugar?: NullableFloatFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    category?: CategoryUpdateOneWithoutFoodsNestedInput
-    meal?: MealUpdateOneWithoutFoodsNestedInput
-    mealFood?: MealFoodUpdateManyWithoutFoodNestedInput
-  }
-
-  export type FoodUncheckedUpdateWithoutFoodServingUnitInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    calories?: NullableFloatFieldUpdateOperationsInput | number | null
-    protein?: NullableFloatFieldUpdateOperationsInput | number | null
-    fat?: NullableFloatFieldUpdateOperationsInput | number | null
-    carbohydrates?: NullableFloatFieldUpdateOperationsInput | number | null
-    fibre?: NullableFloatFieldUpdateOperationsInput | number | null
-    sugar?: NullableFloatFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    categoryId?: NullableIntFieldUpdateOperationsInput | number | null
-    mealId?: NullableIntFieldUpdateOperationsInput | number | null
-    mealFood?: MealFoodUncheckedUpdateManyWithoutFoodNestedInput
   }
 
   export type ServingUnitUpsertWithoutFoodServingUnitInput = {
@@ -12389,6 +12347,48 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     mealFood?: MealFoodUncheckedUpdateManyWithoutServingUnitNestedInput
+  }
+
+  export type FoodUpsertWithoutFoodServingUnitInput = {
+    update: XOR<FoodUpdateWithoutFoodServingUnitInput, FoodUncheckedUpdateWithoutFoodServingUnitInput>
+    create: XOR<FoodCreateWithoutFoodServingUnitInput, FoodUncheckedCreateWithoutFoodServingUnitInput>
+    where?: FoodWhereInput
+  }
+
+  export type FoodUpdateToOneWithWhereWithoutFoodServingUnitInput = {
+    where?: FoodWhereInput
+    data: XOR<FoodUpdateWithoutFoodServingUnitInput, FoodUncheckedUpdateWithoutFoodServingUnitInput>
+  }
+
+  export type FoodUpdateWithoutFoodServingUnitInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    calories?: NullableFloatFieldUpdateOperationsInput | number | null
+    protein?: NullableFloatFieldUpdateOperationsInput | number | null
+    fat?: NullableFloatFieldUpdateOperationsInput | number | null
+    carbohydrates?: NullableFloatFieldUpdateOperationsInput | number | null
+    fibre?: NullableFloatFieldUpdateOperationsInput | number | null
+    sugar?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    meal?: MealUpdateOneWithoutFoodsNestedInput
+    category?: CategoryUpdateOneWithoutFoodsNestedInput
+    mealFood?: MealFoodUpdateManyWithoutFoodNestedInput
+  }
+
+  export type FoodUncheckedUpdateWithoutFoodServingUnitInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    calories?: NullableFloatFieldUpdateOperationsInput | number | null
+    protein?: NullableFloatFieldUpdateOperationsInput | number | null
+    fat?: NullableFloatFieldUpdateOperationsInput | number | null
+    carbohydrates?: NullableFloatFieldUpdateOperationsInput | number | null
+    fibre?: NullableFloatFieldUpdateOperationsInput | number | null
+    sugar?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    categoryId?: NullableIntFieldUpdateOperationsInput | number | null
+    mealId?: NullableIntFieldUpdateOperationsInput | number | null
+    mealFood?: MealFoodUncheckedUpdateManyWithoutFoodNestedInput
   }
 
   export type FoodCreateWithoutMealInput = {
@@ -12457,8 +12457,8 @@ export namespace Prisma {
 
   export type MealFoodCreateWithoutMealInput = {
     amount: number
-    food: FoodCreateNestedOneWithoutMealFoodInput
     servingUnit: ServingUnitCreateNestedOneWithoutMealFoodInput
+    food: FoodCreateNestedOneWithoutMealFoodInput
   }
 
   export type MealFoodUncheckedCreateWithoutMealInput = {
@@ -12539,40 +12539,24 @@ export namespace Prisma {
     data: XOR<MealFoodUpdateManyMutationInput, MealFoodUncheckedUpdateManyWithoutMealInput>
   }
 
-  export type FoodCreateWithoutMealFoodInput = {
+  export type ServingUnitCreateWithoutMealFoodInput = {
     name: string
-    calories?: number | null
-    protein?: number | null
-    fat?: number | null
-    carbohydrates?: number | null
-    fibre?: number | null
-    sugar?: number | null
     createdAt?: Date | string
     updateAt?: Date | string
-    category?: CategoryCreateNestedOneWithoutFoodsInput
-    FoodServingUnit?: FoodServingUnitCreateNestedManyWithoutFoodInput
-    meal?: MealCreateNestedOneWithoutFoodsInput
+    foodServingUnit?: FoodServingUnitCreateNestedManyWithoutServingUnitInput
   }
 
-  export type FoodUncheckedCreateWithoutMealFoodInput = {
+  export type ServingUnitUncheckedCreateWithoutMealFoodInput = {
     id?: number
     name: string
-    calories?: number | null
-    protein?: number | null
-    fat?: number | null
-    carbohydrates?: number | null
-    fibre?: number | null
-    sugar?: number | null
     createdAt?: Date | string
     updateAt?: Date | string
-    categoryId?: number | null
-    mealId?: number | null
-    FoodServingUnit?: FoodServingUnitUncheckedCreateNestedManyWithoutFoodInput
+    foodServingUnit?: FoodServingUnitUncheckedCreateNestedManyWithoutServingUnitInput
   }
 
-  export type FoodCreateOrConnectWithoutMealFoodInput = {
-    where: FoodWhereUniqueInput
-    create: XOR<FoodCreateWithoutMealFoodInput, FoodUncheckedCreateWithoutMealFoodInput>
+  export type ServingUnitCreateOrConnectWithoutMealFoodInput = {
+    where: ServingUnitWhereUniqueInput
+    create: XOR<ServingUnitCreateWithoutMealFoodInput, ServingUnitUncheckedCreateWithoutMealFoodInput>
   }
 
   export type MealCreateWithoutMealFoodInput = {
@@ -12597,66 +12581,66 @@ export namespace Prisma {
     create: XOR<MealCreateWithoutMealFoodInput, MealUncheckedCreateWithoutMealFoodInput>
   }
 
-  export type ServingUnitCreateWithoutMealFoodInput = {
+  export type FoodCreateWithoutMealFoodInput = {
     name: string
+    calories?: number | null
+    protein?: number | null
+    fat?: number | null
+    carbohydrates?: number | null
+    fibre?: number | null
+    sugar?: number | null
     createdAt?: Date | string
     updateAt?: Date | string
-    foodServingUnit?: FoodServingUnitCreateNestedManyWithoutServingUnitInput
+    meal?: MealCreateNestedOneWithoutFoodsInput
+    category?: CategoryCreateNestedOneWithoutFoodsInput
+    FoodServingUnit?: FoodServingUnitCreateNestedManyWithoutFoodInput
   }
 
-  export type ServingUnitUncheckedCreateWithoutMealFoodInput = {
+  export type FoodUncheckedCreateWithoutMealFoodInput = {
     id?: number
     name: string
+    calories?: number | null
+    protein?: number | null
+    fat?: number | null
+    carbohydrates?: number | null
+    fibre?: number | null
+    sugar?: number | null
     createdAt?: Date | string
     updateAt?: Date | string
-    foodServingUnit?: FoodServingUnitUncheckedCreateNestedManyWithoutServingUnitInput
+    categoryId?: number | null
+    mealId?: number | null
+    FoodServingUnit?: FoodServingUnitUncheckedCreateNestedManyWithoutFoodInput
   }
 
-  export type ServingUnitCreateOrConnectWithoutMealFoodInput = {
-    where: ServingUnitWhereUniqueInput
-    create: XOR<ServingUnitCreateWithoutMealFoodInput, ServingUnitUncheckedCreateWithoutMealFoodInput>
-  }
-
-  export type FoodUpsertWithoutMealFoodInput = {
-    update: XOR<FoodUpdateWithoutMealFoodInput, FoodUncheckedUpdateWithoutMealFoodInput>
+  export type FoodCreateOrConnectWithoutMealFoodInput = {
+    where: FoodWhereUniqueInput
     create: XOR<FoodCreateWithoutMealFoodInput, FoodUncheckedCreateWithoutMealFoodInput>
-    where?: FoodWhereInput
   }
 
-  export type FoodUpdateToOneWithWhereWithoutMealFoodInput = {
-    where?: FoodWhereInput
-    data: XOR<FoodUpdateWithoutMealFoodInput, FoodUncheckedUpdateWithoutMealFoodInput>
+  export type ServingUnitUpsertWithoutMealFoodInput = {
+    update: XOR<ServingUnitUpdateWithoutMealFoodInput, ServingUnitUncheckedUpdateWithoutMealFoodInput>
+    create: XOR<ServingUnitCreateWithoutMealFoodInput, ServingUnitUncheckedCreateWithoutMealFoodInput>
+    where?: ServingUnitWhereInput
   }
 
-  export type FoodUpdateWithoutMealFoodInput = {
+  export type ServingUnitUpdateToOneWithWhereWithoutMealFoodInput = {
+    where?: ServingUnitWhereInput
+    data: XOR<ServingUnitUpdateWithoutMealFoodInput, ServingUnitUncheckedUpdateWithoutMealFoodInput>
+  }
+
+  export type ServingUnitUpdateWithoutMealFoodInput = {
     name?: StringFieldUpdateOperationsInput | string
-    calories?: NullableFloatFieldUpdateOperationsInput | number | null
-    protein?: NullableFloatFieldUpdateOperationsInput | number | null
-    fat?: NullableFloatFieldUpdateOperationsInput | number | null
-    carbohydrates?: NullableFloatFieldUpdateOperationsInput | number | null
-    fibre?: NullableFloatFieldUpdateOperationsInput | number | null
-    sugar?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    category?: CategoryUpdateOneWithoutFoodsNestedInput
-    FoodServingUnit?: FoodServingUnitUpdateManyWithoutFoodNestedInput
-    meal?: MealUpdateOneWithoutFoodsNestedInput
+    foodServingUnit?: FoodServingUnitUpdateManyWithoutServingUnitNestedInput
   }
 
-  export type FoodUncheckedUpdateWithoutMealFoodInput = {
+  export type ServingUnitUncheckedUpdateWithoutMealFoodInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    calories?: NullableFloatFieldUpdateOperationsInput | number | null
-    protein?: NullableFloatFieldUpdateOperationsInput | number | null
-    fat?: NullableFloatFieldUpdateOperationsInput | number | null
-    carbohydrates?: NullableFloatFieldUpdateOperationsInput | number | null
-    fibre?: NullableFloatFieldUpdateOperationsInput | number | null
-    sugar?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    categoryId?: NullableIntFieldUpdateOperationsInput | number | null
-    mealId?: NullableIntFieldUpdateOperationsInput | number | null
-    FoodServingUnit?: FoodServingUnitUncheckedUpdateManyWithoutFoodNestedInput
+    foodServingUnit?: FoodServingUnitUncheckedUpdateManyWithoutServingUnitNestedInput
   }
 
   export type MealUpsertWithoutMealFoodInput = {
@@ -12687,30 +12671,46 @@ export namespace Prisma {
     foods?: FoodUncheckedUpdateManyWithoutMealNestedInput
   }
 
-  export type ServingUnitUpsertWithoutMealFoodInput = {
-    update: XOR<ServingUnitUpdateWithoutMealFoodInput, ServingUnitUncheckedUpdateWithoutMealFoodInput>
-    create: XOR<ServingUnitCreateWithoutMealFoodInput, ServingUnitUncheckedCreateWithoutMealFoodInput>
-    where?: ServingUnitWhereInput
+  export type FoodUpsertWithoutMealFoodInput = {
+    update: XOR<FoodUpdateWithoutMealFoodInput, FoodUncheckedUpdateWithoutMealFoodInput>
+    create: XOR<FoodCreateWithoutMealFoodInput, FoodUncheckedCreateWithoutMealFoodInput>
+    where?: FoodWhereInput
   }
 
-  export type ServingUnitUpdateToOneWithWhereWithoutMealFoodInput = {
-    where?: ServingUnitWhereInput
-    data: XOR<ServingUnitUpdateWithoutMealFoodInput, ServingUnitUncheckedUpdateWithoutMealFoodInput>
+  export type FoodUpdateToOneWithWhereWithoutMealFoodInput = {
+    where?: FoodWhereInput
+    data: XOR<FoodUpdateWithoutMealFoodInput, FoodUncheckedUpdateWithoutMealFoodInput>
   }
 
-  export type ServingUnitUpdateWithoutMealFoodInput = {
+  export type FoodUpdateWithoutMealFoodInput = {
     name?: StringFieldUpdateOperationsInput | string
+    calories?: NullableFloatFieldUpdateOperationsInput | number | null
+    protein?: NullableFloatFieldUpdateOperationsInput | number | null
+    fat?: NullableFloatFieldUpdateOperationsInput | number | null
+    carbohydrates?: NullableFloatFieldUpdateOperationsInput | number | null
+    fibre?: NullableFloatFieldUpdateOperationsInput | number | null
+    sugar?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    foodServingUnit?: FoodServingUnitUpdateManyWithoutServingUnitNestedInput
+    meal?: MealUpdateOneWithoutFoodsNestedInput
+    category?: CategoryUpdateOneWithoutFoodsNestedInput
+    FoodServingUnit?: FoodServingUnitUpdateManyWithoutFoodNestedInput
   }
 
-  export type ServingUnitUncheckedUpdateWithoutMealFoodInput = {
+  export type FoodUncheckedUpdateWithoutMealFoodInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    calories?: NullableFloatFieldUpdateOperationsInput | number | null
+    protein?: NullableFloatFieldUpdateOperationsInput | number | null
+    fat?: NullableFloatFieldUpdateOperationsInput | number | null
+    carbohydrates?: NullableFloatFieldUpdateOperationsInput | number | null
+    fibre?: NullableFloatFieldUpdateOperationsInput | number | null
+    sugar?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    foodServingUnit?: FoodServingUnitUncheckedUpdateManyWithoutServingUnitNestedInput
+    categoryId?: NullableIntFieldUpdateOperationsInput | number | null
+    mealId?: NullableIntFieldUpdateOperationsInput | number | null
+    FoodServingUnit?: FoodServingUnitUncheckedUpdateManyWithoutFoodNestedInput
   }
 
   export type MealCreateManyUserInput = {
@@ -12776,8 +12776,8 @@ export namespace Prisma {
 
   export type MealFoodUpdateWithoutFoodInput = {
     amount?: FloatFieldUpdateOperationsInput | number
-    meal?: MealUpdateOneRequiredWithoutMealFoodNestedInput
     servingUnit?: ServingUnitUpdateOneRequiredWithoutMealFoodNestedInput
+    meal?: MealUpdateOneRequiredWithoutMealFoodNestedInput
   }
 
   export type MealFoodUncheckedUpdateWithoutFoodInput = {
@@ -12818,8 +12818,8 @@ export namespace Prisma {
     sugar?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    FoodServingUnit?: FoodServingUnitUpdateManyWithoutFoodNestedInput
     meal?: MealUpdateOneWithoutFoodsNestedInput
+    FoodServingUnit?: FoodServingUnitUpdateManyWithoutFoodNestedInput
     mealFood?: MealFoodUpdateManyWithoutFoodNestedInput
   }
 
@@ -12885,8 +12885,8 @@ export namespace Prisma {
 
   export type MealFoodUpdateWithoutServingUnitInput = {
     amount?: FloatFieldUpdateOperationsInput | number
-    food?: FoodUpdateOneRequiredWithoutMealFoodNestedInput
     meal?: MealUpdateOneRequiredWithoutMealFoodNestedInput
+    food?: FoodUpdateOneRequiredWithoutMealFoodNestedInput
   }
 
   export type MealFoodUncheckedUpdateWithoutServingUnitInput = {
@@ -12971,8 +12971,8 @@ export namespace Prisma {
 
   export type MealFoodUpdateWithoutMealInput = {
     amount?: FloatFieldUpdateOperationsInput | number
-    food?: FoodUpdateOneRequiredWithoutMealFoodNestedInput
     servingUnit?: ServingUnitUpdateOneRequiredWithoutMealFoodNestedInput
+    food?: FoodUpdateOneRequiredWithoutMealFoodNestedInput
   }
 
   export type MealFoodUncheckedUpdateWithoutMealInput = {

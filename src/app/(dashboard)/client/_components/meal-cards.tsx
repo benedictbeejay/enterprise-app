@@ -83,8 +83,14 @@ const MealCards = () => {
   //     );
   //   };
 
+  // const calculateTotalCalories = (mealFood: MealFood[]): number => {
+  //   return mealFood.reduce((total, item) => {
+  //     const calories = (item.food.calories ?? 0) * (item.amount || 1);
+  //     return total + calories;
+  //   }, 0);
+  // };
   const calculateTotalCalories = (mealFood: MealFood[]): number => {
-    return mealFood.reduce((total, item) => {
+    return mealFood.reduce((total: number, item: MealFood) => {
       const calories = (item.food.calories ?? 0) * (item.amount || 1);
       return total + calories;
     }, 0);
@@ -206,8 +212,13 @@ const MealCards = () => {
                 <div className="flex justify-between">
                   <span className="text-sm">Total Food Items</span>
                   <span className="font-medium">
-                    {mealsQuery.data?.reduce(
+                    {/* {mealsQuery.data?.reduce(
                       (total, meal) => total + meal.mealFood.length,
+                      0,
+                    ) || 0} */}
+                    {mealsQuery.data?.reduce(
+                      (total: number, meal: Meal) =>
+                        total + meal.mealFood.length,
                       0,
                     ) || 0}
                   </span>
@@ -252,7 +263,7 @@ const MealCards = () => {
       <div>
         <h3 className="mb-4 text-lg font-medium">Meals</h3>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {mealsQuery.data?.map((meal) => {
+          {mealsQuery.data?.map((meal: Meal) => {
             const totalCalories = calculateTotalCalories(meal.mealFood);
 
             return (

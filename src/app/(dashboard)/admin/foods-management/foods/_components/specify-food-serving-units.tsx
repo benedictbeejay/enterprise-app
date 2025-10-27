@@ -49,10 +49,12 @@ const SpecifyFoodServingUnits = () => {
                 <ControlledSelect<FoodSchema>
                   label="Food Serving Unit"
                   name={`foodServingUnits.${index}.foodServingUnitId`}
-                  options={servingUnitsQuery.data?.map((item) => ({
-                    label: item.name,
-                    value: item.id,
-                  }))}
+                  options={servingUnitsQuery.data?.map(
+                    (item: { id: number; name: string }) => ({
+                      label: item.name,
+                      value: item.id,
+                    }),
+                  )}
                   placeholder="Select unit..."
                 />
                 <ServingUnitFormDialog smallTrigger />

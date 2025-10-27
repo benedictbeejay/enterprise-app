@@ -218,11 +218,40 @@ const getFoods = async (
   };
 };
 
+// const getFood = async (id: number): Promise<FoodSchema | null> => {
+//   const res = await db.food.findFirst({
+//     where: { id },
+//     include: {
+//       FoodServingUnit: true, // ✅ Fixed relation include
+//     },
+//   });
+
+//   if (!res) return null;
+
+//   return {
+//     action: "update" as const,
+//     id,
+//     name: toStringSafe(res.name),
+//     calories: toStringSafe(res.calories),
+//     carbohydrates: toStringSafe(res.carbohydrates),
+//     fat: toStringSafe(res.fat),
+//     fiber: toStringSafe(res.fibre), // ✅ Note: model field is “fibre”, not “fiber”
+//     protein: toStringSafe(res.protein),
+//     sugar: toStringSafe(res.sugar),
+//     categoryId: toStringSafe(res.categoryId),
+//     foodServingUnits:
+//       res.FoodServingUnit.map((item) => ({
+//         foodServingUnitId: toStringSafe(item.servingUnitId),
+//         grams: toStringSafe(item.grams),
+//       })) ?? [],
+//   };
+// };
+
 const getFood = async (id: number): Promise<FoodSchema | null> => {
   const res = await db.food.findFirst({
     where: { id },
     include: {
-      FoodServingUnit: true, // ✅ Fixed relation include
+      FoodServingUnit: true,
     },
   });
 
@@ -235,15 +264,17 @@ const getFood = async (id: number): Promise<FoodSchema | null> => {
     calories: toStringSafe(res.calories),
     carbohydrates: toStringSafe(res.carbohydrates),
     fat: toStringSafe(res.fat),
-    fiber: toStringSafe(res.fibre), // ✅ Note: model field is “fibre”, not “fiber”
+    fiber: toStringSafe(res.fibre),
     protein: toStringSafe(res.protein),
     sugar: toStringSafe(res.sugar),
     categoryId: toStringSafe(res.categoryId),
     foodServingUnits:
-      res.FoodServingUnit.map((item) => ({
-        foodServingUnitId: toStringSafe(item.servingUnitId),
-        grams: toStringSafe(item.grams),
-      })) ?? [],
+      res.FoodServingUnit.map(
+        (item: FoodWithServingUnits["FoodServingUnit"][number]) => ({
+          foodServingUnitId: toStringSafe(item.servingUnitId),
+          grams: toStringSafe(item.grams),
+        }),
+      ) ?? [],
   };
 };
 
