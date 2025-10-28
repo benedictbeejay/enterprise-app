@@ -45,76 +45,105 @@ interface MealFood {
 interface Meal {
   id: number;
   dateTime: string | Date;
-  mealFood: MealFood[];
+  mealFoods: MealFood[];
 }
 
 const MealCards = () => {
   const { updateSelectedMealId, updateMealDialogOpen, mealFilters } =
     useMealsStore();
 
-  const mealsQuery = useMeals();
+  // const mealsQuery = useMeals();
+  const mealsQuery = useMeals() as {
+    data?: Meal[];
+    isLoading: boolean;
+  };
 
   const deleteMealMutation = useDeleteMeal();
 
-  //   const calculateTotalCalories = (mealFoods) => {
-  //     return mealFoods.reduce((total, mealFood) => {
-  //       const foodCalories = mealFood.food.calories * mealFood.amount || 0;
-  //       return total + foodCalories;
-  //     }, 0);
-  //   };
-
-  //   const calculateNutritionTotals = (meals) => {
-  //     return (
-  //       meals?.reduce(
-  //         (totals, meal) => {
-  //           meal.mealFoods.forEach((mealFood) => {
-  //             const multiplier = mealFood.amount || 1;
-  //             totals.calories += (mealFood.food.calories || 0) * multiplier;
-  //             totals.protein += (mealFood.food.protein || 0) * multiplier;
-  //             totals.carbs += (mealFood.food.carbohydrates || 0) * multiplier;
-  //             totals.fat += (mealFood.food.fat || 0) * multiplier;
-  //             totals.sugar += (mealFood.food.sugar || 0) * multiplier;
-  //             totals.fiber += (mealFood.food.fiber || 0) * multiplier;
-  //           });
-  //           return totals;
-  //         },
-  //         { calories: 0, protein: 0, carbs: 0, fat: 0, sugar: 0, fiber: 0 },
-  //       ) || { calories: 0, protein: 0, carbs: 0, fat: 0, sugar: 0, fiber: 0 }
-  //     );
-  //   };
-
-  // const calculateTotalCalories = (mealFood: MealFood[]): number => {
-  //   return mealFood.reduce((total, item) => {
-  //     const calories = (item.food.calories ?? 0) * (item.amount || 1);
-  //     return total + calories;
+  // const calculateTotalCalories = (mealFoods) => {
+  //   return mealFoods.reduce((total, mealFood) => {
+  //     const foodCalories = mealFood.food.calories * mealFood.amount || 0;
+  //     return total + foodCalories;
   //   }, 0);
   // };
-  const calculateTotalCalories = (mealFood: MealFood[]): number => {
-    return mealFood.reduce((total: number, item: MealFood) => {
-      const calories = (item.food.calories ?? 0) * (item.amount || 1);
-      return total + calories;
+
+  const calculateTotalCalories = (mealFoods: MealFood[]): number => {
+    return mealFoods.reduce((total: number, mealFood: MealFood) => {
+      const foodCalories =
+        (mealFood.food.calories ?? 0) * (mealFood.amount || 1);
+      return total + foodCalories;
     }, 0);
   };
+
+  // const calculateNutritionTotals = (meals) => {
+  // const calculateNutritionTotals = (
+  //   meals: Meal[],
+  // ): {
+  //   calories: number;
+  //   protein: number;
+  //   carbs: number;
+  //   fat: number;
+  //   sugar: number;
+  //   fibre: number;
+  // } => {
+  //   return meals.reduce(
+  //     (totals, meal) => {
+  //       meal.mealFoods.forEach((mealFood) => {
+  //         const multiplier = mealFood.amount || 1;
+  //         totals.calories += (mealFood.food.calories ?? 0) * multiplier;
+  //         totals.protein += (mealFood.food.protein ?? 0) * multiplier;
+  //         totals.carbs += (mealFood.food.carbohydrates ?? 0) * multiplier;
+  //         totals.fat += (mealFood.food.fat ?? 0) * multiplier;
+  //         totals.sugar += (mealFood.food.sugar ?? 0) * multiplier;
+  //         totals.fibre += (mealFood.food.fibre ?? 0) * multiplier;
+  //       });
+  //       return totals;
+  //     },
+  //     { calories: 0, protein: 0, carbs: 0, fat: 0, sugar: 0, fibre: 0 },
+  //   );
+  // };
 
   const calculateNutritionTotals = (meals: Meal[]) => {
     return meals.reduce(
       (totals, meal) => {
-        meal.mealFood.forEach((item) => {
-          const multiplier = item.amount || 1;
-          totals.calories += (item.food.calories ?? 0) * multiplier;
-          totals.protein += (item.food.protein ?? 0) * multiplier;
-          totals.carbs += (item.food.carbohydrates ?? 0) * multiplier;
-          totals.fat += (item.food.fat ?? 0) * multiplier;
-          totals.sugar += (item.food.sugar ?? 0) * multiplier;
-          totals.fibre += (item.food.fibre ?? 0) * multiplier;
+        // ✅ safeguard
+        if (!Array.isArray(meal.mealFoods)) return totals;
+
+        meal.mealFoods.forEach((mealFood) => {
+          const multiplier = mealFood.amount || 1;
+          totals.calories += (mealFood.food.calories ?? 0) * multiplier;
+          totals.protein += (mealFood.food.protein ?? 0) * multiplier;
+          totals.carbs += (mealFood.food.carbohydrates ?? 0) * multiplier;
+          totals.fat += (mealFood.food.fat ?? 0) * multiplier;
+          totals.sugar += (mealFood.food.sugar ?? 0) * multiplier;
+          totals.fibre += (mealFood.food.fibre ?? 0) * multiplier;
         });
+
         return totals;
       },
       { calories: 0, protein: 0, carbs: 0, fat: 0, sugar: 0, fibre: 0 },
     );
   };
 
-  //   const nutritionTotals = calculateNutritionTotals(mealsQuery.data);
+  // return (
+  //   meals?.reduce(
+  //     (totals, meal) => {
+  //       meal.mealFoods.forEach((mealFood) => {
+  //         const multiplier = mealFood.amount || 1;
+  //         totals.calories += (mealFood.food.calories || 0) * multiplier;
+  //         totals.protein += (mealFood.food.protein || 0) * multiplier;
+  //         totals.carbs += (mealFood.food.carbohydrates || 0) * multiplier;
+  //         totals.fat += (mealFood.food.fat || 0) * multiplier;
+  //         totals.sugar += (mealFood.food.sugar || 0) * multiplier;
+  //         totals.fiber += (mealFood.food.fiber || 0) * multiplier;
+  //       });
+  //       return totals;
+  //     },
+  //     { calories: 0, protein: 0, carbs: 0, fat: 0, sugar: 0, fiber: 0 },
+  //   ) || { calories: 0, protein: 0, carbs: 0, fat: 0, sugar: 0, fiber: 0 }
+  // );
+  // };
+
   const nutritionTotals = calculateNutritionTotals(mealsQuery.data ?? []);
 
   const displayDate = mealFilters.dateTime
@@ -167,7 +196,7 @@ const MealCards = () => {
             </CardContent>
           </Card>
 
-          {/* Macronutrients Card */}
+          {/* Macro nutrients Card */}
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="flex items-center text-sm font-medium">
@@ -211,17 +240,16 @@ const MealCards = () => {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-sm">Total Food Items</span>
-                  <span className="font-medium">
-                    {/* {mealsQuery.data?.reduce(
-                      (total, meal) => total + meal.mealFood.length,
-                      0,
-                    ) || 0} */}
+                  {/* <span className="font-medium">
                     {mealsQuery.data?.reduce(
-                      (total: number, meal: Meal) =>
-                        total + meal.mealFood.length,
+                      (total, meal) => total + meal.mealFoods.length,
                       0,
                     ) || 0}
-                  </span>
+                  </span> */}
+                  {mealsQuery.data?.reduce(
+                    (total, meal) => total + (meal.mealFoods?.length ?? 0),
+                    0,
+                  ) || 0}
                 </div>
                 <div className="flex justify-between">
                   <span className="text-sm">Last Meal</span>
@@ -263,9 +291,10 @@ const MealCards = () => {
       <div>
         <h3 className="mb-4 text-lg font-medium">Meals</h3>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {mealsQuery.data?.map((meal: Meal) => {
-            const totalCalories = calculateTotalCalories(meal.mealFood);
-
+          {/* {mealsQuery.data?.map((meal) => {
+            const totalCalories = calculateTotalCalories(meal.mealFoods); */}
+          {mealsQuery.data?.map((meal) => {
+            const totalCalories = calculateTotalCalories(meal.mealFoods ?? []);
             return (
               <div
                 className="border-border/40 hover:border-border/80 flex flex-col gap-3 rounded-lg border p-6 transition-colors"
@@ -314,20 +343,25 @@ const MealCards = () => {
 
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
-                    <Utensils className="text-primary size-4" />
+                    {/* <Utensils className="text-primary size-4" />
                     <p className="text-foreground/70 text-sm font-medium">
-                      {meal.mealFood.length}{" "}
-                      {meal.mealFood.length === 1 ? "item" : "items"}
+                      {meal.mealFoods.length}{" "}
+                      {meal.mealFoods.length === 1 ? "item" : "items"}
+                    </p> */}
+                    <p className="text-foreground/70 text-sm font-medium">
+                      {meal.mealFoods?.length ?? 0}{" "}
+                      {(meal.mealFoods?.length ?? 0) === 1 ? "item" : "items"}
                     </p>
                   </div>
 
-                  {meal.mealFood.length === 0 ? (
+                  {/* {meal.mealFoods.length === 0 ? ( */}
+                  {(meal.mealFoods?.length ?? 0) === 0 ? (
                     <p className="text-foreground/60 text-sm italic">
                       No foods added
                     </p>
                   ) : (
                     <div className="space-y-3">
-                      {meal.mealFood.map((mealFood) => (
+                      {meal.mealFoods.map((mealFood) => (
                         <div
                           key={mealFood.id}
                           className="bg-muted/40 rounded-md p-3"

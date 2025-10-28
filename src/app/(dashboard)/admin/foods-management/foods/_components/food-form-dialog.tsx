@@ -119,12 +119,10 @@ const FoodFormDialog = () => {
                 <ControlledSelect<FoodSchema>
                   label="Category"
                   name="categoryId"
-                  options={categoriesQuery.data?.map(
-                    (item: { id: number; name: string }) => ({
-                      label: item.name,
-                      value: item.id,
-                    }),
-                  )}
+                  options={categoriesQuery.data?.map((item) => ({
+                    label: item.name,
+                    value: item.id,
+                  }))}
                 />
                 <CategoryFormDialog smallTrigger />
               </div>

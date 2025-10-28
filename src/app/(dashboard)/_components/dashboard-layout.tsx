@@ -219,7 +219,7 @@ const DashboardLayout = ({ children, session }: DashboardLayoutProps) => {
             className={`bg-background fixed visible top-0 left-0 h-screen w-64 border p-4 transition-transform duration-300 ${open ? "translate-x-0" : "-translate-x-full"}`}
           >
             <div className="flex items-center justify-between">
-              <h1 className="font-semibold">Admin Dashboard</h1>
+              <h1 className="font-semibold">Dashboard</h1>
               <Collapsible.Trigger asChild>
                 <Button size="icon" variant="outline">
                   <ChevronLeft />

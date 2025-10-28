@@ -135,29 +135,6 @@ const getMeals = async (filters: MealFiltersSchema) => {
   return data;
 };
 
-// const getMeal = async (id: number): Promise<MealSchema | null> => {
-//   const res = await db.meal.findFirst({
-//     where: { id },
-//     include: {
-//       mealFood: true, // ✅ corrected relation name
-//     },
-//   });
-
-//   if (!res) return null;
-
-//   return {
-//     action: "update" as const,
-//     id,
-//     dateTime: res.dateTime,
-//     userId: toStringSafe(res.userId),
-//     mealFoods:
-//       res.mealFood.map((item) => ({
-//         foodId: toStringSafe(item.foodId),
-//         amount: toStringSafe(item.amount),
-//         servingUnitId: toStringSafe(item.servingUnitId),
-//       })) ?? [],
-//   };
-// };
 const getMeal = async (id: number): Promise<MealSchema | null> => {
   const res = await db.meal.findFirst({
     where: { id },
@@ -174,7 +151,7 @@ const getMeal = async (id: number): Promise<MealSchema | null> => {
     dateTime: res.dateTime,
     userId: toStringSafe(res.userId),
     mealFoods:
-      res.mealFood.map((item: Prisma.MealFood) => ({
+      res.mealFood.map((item) => ({
         foodId: toStringSafe(item.foodId),
         amount: toStringSafe(item.amount),
         servingUnitId: toStringSafe(item.servingUnitId),
